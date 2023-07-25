@@ -130,14 +130,15 @@ async def sendDailyReport():
         groupName, groupNewPosts, groupNewSubscribers, groupNewDirectADs, groupCoverage = result
         now = datetime.now()
         reportDate = format_date(now, format="d MMMM", locale=appLocale)
-        report_message = (
+        reportMessage = (
             f"🔔 Отчёт по сообществу «<a href='https://vk.com/public{group_id}'>{groupName}</a>» за <b>{reportDate}</b>\n\n"
             f"• <b>Опубликовано:</b> {groupNewPosts} постов\n"
             f"• <b>Продано:</b> {groupNewDirectADs} прямых реклам\n\n"
             f"📈 <b>+{groupNewSubscribers}</b> подписчиков\n"
             f"📊 <b>{groupCoverage}</b> охват подписчиков"
         )
-        await bot.send_message(chat_id=telegramChatID, text=report_message, parse_mode='HTML', disable_web_page_preview=not(webPagePreview))
+        with open(groupImages[group_id], 'rb') as photo:
+            await bot.send_photo(chat_id=telegramChatID, photo=photo, caption=reportMessage, parse_mode='HTML', disable_web_page_preview=not(webPagePreview))
         await setLastReportTime(now)
         await asyncio.sleep(1)
 
@@ -176,4 +177,4 @@ async def main():
         await onShutdown()
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    asyncio.run(main()) 
