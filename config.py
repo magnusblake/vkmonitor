@@ -15,9 +15,9 @@ vkAPIVersion = "5.131"
 imageStart = "images/imageStart.png"
 imageStop = "images/imageStop.png"
 imagesGroup = {
-    'groupID1': 'imageID1.png',
-    'groupID2': 'imageID2.png',
-    'groupID3': 'imageID2.png'
+    'groupID1': 'images/imageID1.png',
+    'groupID2': 'images/imageID2.png',
+    'groupID3': 'images/imageID3.png'
 }
 
 # [Настройки базы данных] #
