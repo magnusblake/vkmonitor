@@ -1,8 +1,8 @@
 # [Основные настройки] #
-telegramToken = "6059912059:AAEXlAbB-cv1vY5sM4L1MGbERSP2a2dC1TA"
-telegramChatID = "-666813758"
-vkToken = "d2f6a091d2f6a091d2f6a09192d1e3a572dd2f6d2f6a091b64cc3e7f701c9224d1288c7"
-vkGroupsID = [100155122, 57443638]
+telegramToken = "telegramToken"
+telegramChatID = "telegramChatID"
+vkToken = "vkToken"
+vkGroupsID = [0000000, 0000001]
 webPagePreview = False
 specialChar = "⠀"
 appLocale = "ru"
@@ -14,13 +14,18 @@ vkAPIVersion = "5.131"
 # [Настройки изображений] #
 imageStart = "images/imageStart.png"
 imageStop = "images/imageStop.png"
+imagesGroup = {
+    'groupID1': 'imageID1.png',
+    'groupID2': 'imageID2.png',
+    'groupID3': 'imageID2.png'
+}
 
 # [Настройки базы данных] #
 databaseName = "appDatabase.db"
 
 # [Настройки времени] #
-timeHours = 0
-timeMinutes = 11
+timeHours = 23
+timeMinutes = 55
 
 # [Настройки текста] #
 captionImageStart = "✅ Мониторинг сообществ был успешно запущен!"
