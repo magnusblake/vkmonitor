@@ -18,15 +18,15 @@ botScheduler = AsyncIOScheduler()
 botScheduler.add_job(BotFunctions.sendReport, typeTrigger, hour=timeHours, minute=timeMinutes, args=[bot])
 
 # [Инициализация событийного цикла для текущего контекста выполнения] #
-loop = asyncio.new_event_loop()
-asyncio.set_event_loop(loop)
+botLoop = asyncio.new_event_loop()
+asyncio.set_event_loop(botLoop)
 
 # [Запуск планировщика задач] #
 botScheduler.start()
 
 # [Запуск бесконечного цикла событий] #
 try:
-    loop.run_until_complete(BotFunctions.onStartup(bot))
+    botLoop.run_until_complete(BotFunctions.onStartup(bot))
     asyncio.get_event_loop().run_forever()
 except KeyboardInterrupt:
-    loop.run_until_complete(BotFunctions.onShutdown(bot))
+    botLoop.run_until_complete(BotFunctions.onShutdown(bot))
