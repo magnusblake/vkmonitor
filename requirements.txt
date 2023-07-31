@@ -1,5 +1,5 @@
-aiohttp
-asyncio
-aiosqlite
 aiogram
+aiovk
+APScheduler
 babel
+pymorphy3
