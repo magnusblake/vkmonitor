@@ -2,9 +2,12 @@
 # [Импорт необходимых модулей] #
 import asyncio
 from aiogram import Bot, Dispatcher
-from config import telegramToken, timeHours, timeMinutes, typeTrigger
+from config import telegramToken, timeHours, timeMinutes, typeTrigger, timeZone
 from functions import BotFunctions
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from apscheduler.triggers.date import DateTrigger
+import pytz
+from datetime import time, datetime
 
 # [Инициализация экземпляра класса BotFunctions] #
 BotFunctions = BotFunctions()
@@ -13,9 +16,14 @@ BotFunctions = BotFunctions()
 bot = Bot(token=telegramToken)
 botDispatcher = Dispatcher(bot)
 
+# [Инициализация объекта временной зоны] #
+timeZoneObj = pytz.timezone(timeZone)
+currentTime = time(hour=timeHours, minute=timeMinutes, tzinfo=timeZoneObj)
+
 # [Инициализация объекта планировщика задач] #
 botScheduler = AsyncIOScheduler()
-botScheduler.add_job(BotFunctions.sendReport, typeTrigger, hour=timeHours, minute=timeMinutes, args=[bot])
+runTime = datetime.now(timeZoneObj).replace(hour=currentTime.hour, minute=currentTime.minute)
+botScheduler.add_job(BotFunctions.sendReport, DateTrigger(run_date=runTime), args=[bot])
 
 # [Инициализация событийного цикла для текущего контекста выполнения] #
 botLoop = asyncio.new_event_loop()
