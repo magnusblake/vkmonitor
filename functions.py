@@ -10,6 +10,18 @@ import pymorphy3
 
 # [Инициализация класса для работы со всеми функциями бота] #
 class BotFunctions:
+    async def getFormatedNumber(self, number):
+        """
+        Получение удобочитаемых чисел
+        """
+        number = str(number)
+        numberBlocks = []
+        while len(number) > 3:
+            numberBlocks.append(number[-3:])
+            number = number[:-3]
+        numberBlocks = ' '.join(numberBlocks[::-1])
+        return f'{number} {numberBlocks}'
+
     async def getGroupName(self, vkToken, groupID):
         """
         Получение названия группы по её ID
@@ -73,9 +85,9 @@ class BotFunctions:
             subscribersDifference = stats[3] - stats[4]
             pSubscribers = morph.parse('подписчик')[0]
             if subscribersDifference > 0:
-                subscribersDifferenceStr = f"+<b>{subscribersDifference}</b> {pSubscribers.inflect({'nomn', 'sing'}).word}"
+                subscribersDifferenceStr = f"+<b>{subscribersDifference}</b> {pSubscribers.make_agree_with_number(subscribersDifference).word}"
             elif subscribersDifference < 0:
-                subscribersDifferenceStr = f"<b>{subscribersDifference}</b> {pSubscribers.inflect({'gent', 'sing'}).word}"
+                subscribersDifferenceStr = f"<b>{subscribersDifference}</b> {pSubscribers.make_agree_with_number(abs(subscribersDifference)).word}"
             else:
                 subscribersDifferenceStr = "<b>+0</b> подписчиков"
             pPosts = morph.parse('пост')[0]
@@ -89,8 +101,8 @@ class BotFunctions:
                 f"• <b>Продано:</b> {totalAdPosts} {pDirect.make_agree_with_number(totalAdPosts).word} {pAd.make_agree_with_number(totalAdPosts).word}, {totalMarketPosts} {pMarket.make_agree_with_number(totalMarketPosts).word}\n\n"
                 f"👤 {subscribersDifferenceStr}\n"
                 f"📢 <b>{stats[2]}</b> {pReposts.make_agree_with_number(stats[2]).word}\n"
-                f"🔍 <b>{stats[1]}</b> общий охват\n"
-                f"📊 <b>{stats[0]}</b> охват подписчиков"
+                f"🔍 <b>{await self.getFormatedNumber(stats[1])}</b> общий охват\n"
+                f"📊 <b>{await self.getFormatedNumber(stats[0])}</b> охват подписчиков"
             )
             with open(imagesGroup[groupID], 'rb') as photo:
                 await bot.send_photo(chat_id=telegramChatID, photo=photo, caption=messageCaption, parse_mode='HTML')
