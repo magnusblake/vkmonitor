@@ -3,3 +3,4 @@ aiovk
 APScheduler
 babel
 pymorphy3
+pytz
