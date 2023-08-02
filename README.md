@@ -26,7 +26,7 @@ VKMonitor — необходимый инструмент для монитор�
 
 1. Клонируйте репозиторий:
     ```
-    git clone https://github.com/noleeq/vkmonitor.git
+    git clone https://github.com/magnusblake/vkmonitor.git
     ```
 
 2. Перейдите в директорию проекта:
